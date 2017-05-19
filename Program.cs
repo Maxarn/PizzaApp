@@ -29,7 +29,7 @@ namespace BakaPizza
     // Abstrakt klass för hur en pizza implementerar IPizza interfacet
     public abstract class Pizza : IPizza
     {
-        private static readonly List<string> obligatoriska_pålägg = new List<string>(new string[] { "Tomato sauce", "Cheese" });
+        private static readonly List<string> obligatoriska_pålägg = new List<string>(new string[] { "Tomatsås", "Ost" });
 
         private List<string> pålägg;
         private String namn;
@@ -43,11 +43,11 @@ namespace BakaPizza
         {
             if (this.pålägg.Contains(pålägg))
             {
-                throw new DuplikatPåläggException("Your pizza already have " + pålägg + " as a topping.");
+                throw new DuplikatPåläggException("Din pizza har redan " + pålägg + " som pålägg.");
             }
-            else if (pålägg.ToLower() == "pineapple")
+            else if (pålägg.ToLower() == "ananas")
             {
-                throw new VanhelgandeException("You can't have pineapple on a pizza.");
+                throw new VanhelgandeException("Du kan inte ha ananas på pizzan.");
             }
             else
             {
@@ -59,7 +59,7 @@ namespace BakaPizza
         {
             if (obligatoriska_pålägg.Contains(pålägg))
             {
-                throw new VanhelgandeException("A pizza without " + pålägg + " ain't no pizza at all.");
+                throw new VanhelgandeException("En pizza utan " + pålägg + " är ingen pizza alls.");
             }
             else
             {
@@ -93,7 +93,7 @@ namespace BakaPizza
         public Vesuvio()
         {
             this.återställPålägg();
-            this.läggTillPålägg("Ham");
+            this.läggTillPålägg("Skinka");
             this.ändraPizzansNamn("Vesuvio");
         }
     }
@@ -103,10 +103,10 @@ namespace BakaPizza
         public Kebabpizza()
         {
             this.återställPålägg();
-            this.läggTillPålägg("Kebab meat");
-            this.läggTillPålägg("Onions");
+            this.läggTillPålägg("Kebabkött");
+            this.läggTillPålägg("Lök");
             this.läggTillPålägg("Feferoni");
-            this.läggTillPålägg("Kebab sauce");
+            this.läggTillPålägg("Kebabsås");
             this.ändraPizzansNamn("Kebabpizza");
         }
     }
@@ -129,14 +129,14 @@ namespace BakaPizza
         public static void Main(string[] args)
         {
 
-            Console.WriteLine("Welcome to Max super very professional pizza program!");
+            Console.WriteLine("Välkommen till Max super jätte professionella pizza program!");
 
             bool loop = true;
             while (loop)
             {
-                Console.WriteLine("\nTo navigate though these menus, you'll have to type the number of the desired option.\n"
-                                + "1. Do something related with pizzas.\n"
-                                + "0. Exit the program.");
+                Console.WriteLine("\nSkriv numret till alternativet som du vill gå igenom med för att navigera i dessa menyer.\n"
+                                + "1. Gör något pizzarelaterat.\n"
+                                + "0. Avslutaprogrammet.");
 
                 switch (Console.ReadLine())
                 {
@@ -144,11 +144,11 @@ namespace BakaPizza
                         huvudPizzaMeny();
                         break;
                     case "0":
-                        Console.WriteLine("\nGood choice.");
+                        Console.WriteLine("\nBra val.");
                         loop = false;
                         break;
                     default:
-                        Console.WriteLine("\nThe provided input couldn't be processed.");
+                        Console.WriteLine("\nInput känns inte igen. Försök igen, eller ange siffran 0 för att avsluta.");
                         break;
                 }
             }
@@ -162,9 +162,9 @@ namespace BakaPizza
             { // Mardrömsloop öppnas
                 if (vald_pizza == null)
                 {
-                    Console.WriteLine("\nYou don't have a pizza.\n"
-                                    + "1. Choose a pizza.\n"
-                                    + "0. Return to the previous menu.");
+                    Console.WriteLine("\nDu har inte valt någon pizza.\n"
+                                    + "1. Välj en pizza.\n"
+                                    + "0. Backa till tidigare meny.");
 
                     switch (Console.ReadLine())
                     {
@@ -175,19 +175,19 @@ namespace BakaPizza
                             loop = false;
                             break;
                         default:
-                            Console.WriteLine("\nThe provided input couldn't be processed.");
+                            Console.WriteLine("\nInput känns inte igen. Försök igen.");
                             break;
                     }
                 }
                 else
                 {
-                    Console.WriteLine("\nYou got a {0}. What do you wish to do?\n"
-                                    + "1. Choose a new pizza.\n"
-                                    + "2. Manage toppings.\n"
-                                    + "3. Consume the pizza.\n"
-                                    + "4. Throw away the pizza.\n"
-                                    + "5. Rename the pizza.\n"
-                                    + "0. Return to the previous menu.",
+                    Console.WriteLine("\nDu har en {0}. Vad vill du göra?\n"
+                                    + "1. Välj en ny pizza.\n"
+                                    + "2. Hantera pålägg.\n"
+                                    + "3. Konsumera pizzan.\n"
+                                    + "4. Kasta bort pizzan.\n"
+                                    + "5. Döp om pizzan.\n"
+                                    + "0. Backa till tidigare meny.",
                                     vald_pizza.pizzansNamn());
 
                     switch (Console.ReadLine())
@@ -200,21 +200,21 @@ namespace BakaPizza
                             break;
                         case "3":
                             vald_pizza = null;
-                            Console.WriteLine("\nYou Consumed the pizza.");
+                            Console.WriteLine("\nDu konsumerade pizzan.");
                             break;
                         case "4":
                             vald_pizza = null;
-                            Console.WriteLine("\nYou threw away the pizza, wow.");
+                            Console.WriteLine("\nDu kastade bort en pizza, wow.");
                             break;
                         case "5":
-                            Console.WriteLine("\nProvide the new name for the pizza:");
+                            Console.WriteLine("\nAnge pizzans nya namn:");
                             vald_pizza.ändraPizzansNamn(Console.ReadLine());
                             break;
                         case "0":
                             loop = false;
                             break;
                         default:
-                            Console.WriteLine("\nThe provided input couldn't be processed.");
+                            Console.WriteLine("\nInput känns inte igen. Försök igen.");
                             break;
                     }
                 }
@@ -227,11 +227,11 @@ namespace BakaPizza
             bool loop = true;
             while (loop)
             { // Mardrömsloop öppnas
-                Console.WriteLine("\nFeel free to pick anything from this massive range of options!\n"
+                Console.WriteLine("\nVälj en pizza från mitt massiva utbud!\n"
                                 + "1. Kebabpizza.\n"
                                 + "2. Vesuvio.\n"
-                                + "3. An empty pizza. You better add some toppings to it.\n"
-                                + "0. Return to the previous menu.");
+                                + "3. Tom pizza. Bäst för dig att du lägger lite pålägg på den först.\n"
+                                + "0. Backa till tidigare meny.");
 
                 switch (Console.ReadLine())
                 {
@@ -251,7 +251,7 @@ namespace BakaPizza
                         loop = false;
                         break;
                     default:
-                        Console.WriteLine("\nThe provided input couldn't be processed.");
+                        Console.WriteLine("\nInput känns inte igen. Försök igen.");
                         break;
                 }
             } // Mardrömsloop sluts
@@ -270,18 +270,19 @@ namespace BakaPizza
                     pålägg_sträng += nuvarande_pålägg[i] + ", ";
                 }
 
-                pålägg_sträng += nuvarande_pålägg[nuvarande_pålägg.Count - 2] + " and " + nuvarande_pålägg[nuvarande_pålägg.Count - 1] + ".";
+                pålägg_sträng += nuvarande_pålägg[nuvarande_pålägg.Count - 2] + " och " + nuvarande_pålägg[nuvarande_pålägg.Count - 1] + ".";
 
-                Console.WriteLine("\nYour pizza has the following toppings:\n{0}\n"
-                                + "1. Add another topping.\n"
-                                + "2. Remove a topping.\n"
-                                + "0. Return to the previous menu.",
+                Console.WriteLine("\nDin pizza har följande pålägg:\n"
+                                + "{0}\n"
+                                + "1. Lägg till ett pålägg.\n"
+                                + "2. Ta bort ett pålägg.\n"
+                                + "0. Backa till tidigare meny.",
                                 pålägg_sträng);
 
                 switch (Console.ReadLine())
                 {
                     case "1":
-                        Console.WriteLine("\nProvide the name for the topping you wish to add:");
+                        Console.WriteLine("\nAnge namnet på pålägget som du vill lägga till:");
                         try
                         {
                             vald_pizza.läggTillPålägg(Console.ReadLine());
@@ -298,7 +299,7 @@ namespace BakaPizza
                         loop = false;
                         break;
                     default:
-                        Console.WriteLine("\nThe provided input couldn't be processed.");
+                        Console.WriteLine("\nInput känns inte igen. Försök igen.");
                         break;
                 }
             } // Mardrömsloop sluts
@@ -318,9 +319,9 @@ namespace BakaPizza
                     pålägg_sträng += (i + 1) + ". " + nuvarande_pålägg[i] + "\n";
                 }
 
-                Console.WriteLine("\nWhich topping do you wish to amputate?\n"
+                Console.WriteLine("\nVilket pålägg vill du amputera?\n"
                                 + "{0}"
-                                + "0. Return to the previous menu.",
+                                + "0. Backa till tidigare meny.",
                                 pålägg_sträng);
 
                 int parsed_value;
@@ -342,7 +343,7 @@ namespace BakaPizza
                 }
                 else
                 {
-                    Console.WriteLine("\nThe provided input couldn't be processed.");
+                    Console.WriteLine("\nInput känns inte igen. Försök igen.");
                 }
             } // Mardrömsloop sluts
         }
